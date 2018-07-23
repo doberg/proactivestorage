@@ -17,7 +17,9 @@ A key difference to how Pro Active Storage works compared to other attachment so
 Add the following line to your Gemfile:
 `gem 'proactivestorage', :git => 'https://github.com/doberg/proactivestorage', :glob => 'proactivestorage/*.gemspec'`
 
-Run `rails generate pro_active_storage:install` to copy over pro_active_storage migrations.
+Then `bundle install`
+
+After you bundle install you will need to make a few adjustments to get pro_active_storage working as expected.
 
 You cannot use `activestorage` with `proactivestorage` please adjust your "config/application.rb":
 from `require "rails/all"` to `require "rails"`
@@ -34,14 +36,18 @@ require "active_model/railtie"
 require "active_job/railtie"
 require "active_record/railtie"
 require "action_controller/railtie"
-# require "action_mailer/railtie"
+require "action_mailer/railtie"
 require "action_view/railtie"
-# require "action_cable/engine"
+require "action_cable/engine"
 require "pro_active_storage/engine" ## <= Make sure this line is present ##
 require "sprockets/railtie"
 ```
 
+Then in each of your config/environments files. Change `config.active_storage.service` to   `config.pro_active_storage.service`
 
+Run `rails pro_active_storage:install` to copy over pro_active_storage migrations.
+
+Then `bin/rail db:migrate`.
 
 ## Examples
 
