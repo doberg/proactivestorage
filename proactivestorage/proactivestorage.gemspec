@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
 
   s.license = "MIT"
 
-  s.author   = "David Heinemeier Hansson, Danial Oberg"
-  s.email    = "david@loudthinking.com, dan@cs1.com"
+  s.author   = "David Heinemeier Hansson"
+  s.email    = "david@loudthinking.com"
   s.homepage = "http://rubyonrails.org"
 
   s.files        = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*", "app/**/*", "config/**/*", "db/**/*"]
