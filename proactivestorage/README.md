@@ -14,40 +14,65 @@ A key difference to how Pro Active Storage works compared to other attachment so
 
 ## Installation
 
-Add the following line to your Gemfile:
+
+
+In your Gemfile
+change `gem 'rails', '5.2.0'` to `gem 'rails', '5.2.0', :git => 'https://github.com/doberg/proactivestorage', :submodules => true`
+
+Then add the following line to your Gemfile:
 `gem 'proactivestorage', :git => 'https://github.com/doberg/proactivestorage', :glob => 'proactivestorage/*.gemspec'`
 
-Then `bundle install`
+After `bundle update` && `bundle install`
 
 After you bundle install you will need to make a few adjustments to get pro_active_storage working as expected.
 
-You cannot use `activestorage` with `proactivestorage` please adjust your "config/application.rb":
-from `require "rails/all"` to `require "rails"`
-
-Make sure to add the following line to your "config/application.rb":
-`require "pro_active_storage/engine"`
-
-## Pick only the frameworks your application needs:
-#### Example:
-
-```
-require "rails"
-require "active_model/railtie"
-require "active_job/railtie"
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "action_view/railtie"
-require "action_cable/engine"
-require "pro_active_storage/engine" ## <= Make sure this line is present ##
-require "sprockets/railtie"
-```
-
 Then in each of your config/environments files. Change `config.active_storage.service` to   `config.pro_active_storage.service`
+
+In app/assets/javascripts/application.js change `//= require activestorage` to `//= require proactivestorage`
 
 Run `rails pro_active_storage:install` to copy over pro_active_storage migrations.
 
 Then `bin/rail db:migrate`.
+
+Don't forget to create a `config/storage.yml` file like so:
+
+```
+test:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage") %>
+
+# local:
+#   service: Disk
+#   root: <%= Rails.root.join("storage") %>
+
+# Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
+#amazon:
+#  service: S3
+#  access_key_id:
+#  secret_access_key:
+#  region: us-west-2
+#  bucket: "test-app"
+
+# Remember not to checkin your GCS keyfile to a repository
+# google:
+#   service: GCS
+#   project: your_project
+#   credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
+#   bucket: your_own_bucket
+
+# Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
+# microsoft:
+#   service: AzureStorage
+#   storage_account_name: your_account_name
+#   storage_access_key: <%= Rails.application.credentials.dig(:azure_storage, :storage_access_key) %>
+#   container: your_container_name
+
+# mirror:
+#   service: Mirror
+#   primary: local
+#   mirrors: [ amazon, google, microsoft ]
+
+```
 
 ## Examples
 
