@@ -15,7 +15,7 @@ A key difference to how Pro Active Storage works compared to other attachment so
 ## Installation
 
 Add the following line to your Gemfile:
-`gem 'proactivestorage'`
+`gem 'proactivestorage', :git => 'https://github.com/doberg/proactivestorage', :glob => 'proactivestorage/*.gemspec'`
 
 Run `rails generate pro_active_storage:install` to copy over pro_active_storage migrations.
 
