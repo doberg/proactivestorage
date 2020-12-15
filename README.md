@@ -1,4 +1,4 @@
-# Welcome to Rails
+# DEPRECATED in favor of Rails >= 6.1.0
 
 ## What's Rails
 
